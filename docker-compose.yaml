@@ -29,7 +29,20 @@ services:
       - internal
     depends_on:
       - backend
-
+  cache:
+    image: redis:latest
+    container_name: laravel_cache
+    networks:
+      - internal
+  email:
+    image: mailhog/mailhog:v1.0.1
+    container_name: laravel_mail
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - internal
+      - public
   db:
     image: postgres:16-alpine
     container_name: laravel_db
